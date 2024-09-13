@@ -1,0 +1,6 @@
+@SmallDelivery_HostAddress = http://localhost:5150
+
+GET {{SmallDelivery_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
