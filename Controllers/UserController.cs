@@ -34,8 +34,8 @@ namespace SmallDelivery.Controllers
             return TypedResults.Ok(_mapper.Map<UserDetailsDto>(entity));
         }
         [HttpPost]
-        [ProducesResponseType<Guid>(StatusCodes.Status201Created)]
-        public async Task<IResult> Create([FromBody] UserUpdoteDto user, CancellationToken cancellationToken)
+        [ProducesResponseType<UserCreateDetailsDto>(StatusCodes.Status201Created)]
+        public async Task<Results<BadRequest, Created<UserCreateDetailsDto>>> Create([FromBody] UserUpdoteDto user, CancellationToken cancellationToken)
         {
             var entity = new User
             {
@@ -49,7 +49,7 @@ namespace SmallDelivery.Controllers
             };
             await _context.Users.AddAsync(entity, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
-            return Results.Created("", entity.Id);
+            return TypedResults.Created("", _mapper.Map<UserCreateDetailsDto>(entity));
         }
         [HttpPut("{id}")]
         public async Task<Results<NotFound, Ok<UserDetailsDto>>> Update(Guid id, [FromBody] UserUpdoteDto user, CancellationToken cancellationToken)

@@ -5,6 +5,7 @@ using AutoMapper;
 using SmallDelivery.Models.Mappings.DTO;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SmallDelivery.Controllers
 {

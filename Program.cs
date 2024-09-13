@@ -1,9 +1,14 @@
 using System.Reflection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SmallDelivery;
+using SmallDelivery.Auth;
+using SmallDelivery.Models;
 using SmallDelivery.Models.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddTransient<AuthService>();
 
 builder.Services.AddAutoMapper(config =>
             {
@@ -29,6 +34,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseHttpsRedirection();
+// app.MapPost("/authenticate", (User user, AuthService authService)
+//     => authService.GenerateToken(user));
 app.MapControllers();
 
 app.Run();
