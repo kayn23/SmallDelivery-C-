@@ -31,7 +31,7 @@ public class StockController : ControllerBase
     return TypedResults.Ok(_mapper.Map<StockDetailsDto>(entity));
   }
   [HttpPost]
-  public async Task<ActionResult> Create([FromBody] StockCreateDto stock)
+  public async Task<IResult> Create([FromBody] StockCreateDto stock)
   {
     var entity = new Stock
     {
@@ -41,7 +41,7 @@ public class StockController : ControllerBase
     };
     await _context.Stocks.AddAsync(entity);
     await _context.SaveChangesAsync();
-    return StatusCode(201);
+    return Results.Created("", entity.Id);
   }
   [HttpPut("{id}")]
   public async Task<Results<NotFound, Ok<StockDetailsDto>>> Update(Guid id, [FromBody] StockCreateDto stock)
